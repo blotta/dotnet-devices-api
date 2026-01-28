@@ -12,6 +12,11 @@ services:
     container_name: db
     restart: unless-stopped
     # shm_size: 128mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d devices"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
     - pgdata:/var/lib/postgresql/18/docker
     environment:
