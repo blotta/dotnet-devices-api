@@ -3,6 +3,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Repositories;
 
 namespace Infrastructure
 {
@@ -15,7 +16,7 @@ namespace Infrastructure
             services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseNpgsql(config.GetConnectionString("Database")));
 
-            services.AddScoped<DeviceRepository>();
+            services.AddScoped<IDeviceRepository, DeviceRepository>();
 
             return services;
         }

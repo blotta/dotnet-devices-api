@@ -1,6 +1,5 @@
 using Application.DTOs;
 using Application.Services;
-using Domain.Entities;
 using Domain.Enums;
 using Domain.Queries;
 using Microsoft.AspNetCore.Mvc;

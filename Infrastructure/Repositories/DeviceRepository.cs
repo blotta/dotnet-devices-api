@@ -5,10 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Application.Repositories;
 
 namespace Infrastructure.Repositories
 {
-    public class DeviceRepository(ApplicationDbContext _context)
+    public class DeviceRepository(ApplicationDbContext _context) : IDeviceRepository
     {
         public async Task<Device?> GetByIdAsync(Guid id)
             => await _context.Devices.FindAsync(id);
@@ -18,10 +19,10 @@ namespace Infrastructure.Repositories
             var query = _context.Devices.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Brand))
-                query = query.Where(d =>  d.Brand == filter.Brand);
+                query = query.Where(d => d.Brand == filter.Brand);
 
             if (filter.State is not null)
-                query = query.Where(d =>  d.State == filter.State.Value);
+                query = query.Where(d => d.State == filter.State.Value);
 
             return await query.AsNoTracking().ToListAsync();
         }

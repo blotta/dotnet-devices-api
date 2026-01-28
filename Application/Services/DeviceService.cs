@@ -1,15 +1,12 @@
 ﻿using Application.DTOs;
 using Application.Exceptions;
+using Application.Repositories;
 using Domain.Entities;
 using Domain.Queries;
-using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Application.Services
 {
-    public class DeviceService(DeviceRepository _repository)
+    public class DeviceService(IDeviceRepository _repository)
     {
         public async Task<DeviceResponse> CreateAsync(CreateDeviceRequest request)
         {

@@ -22,8 +22,8 @@ builder.Services.AddControllers()
 builder.Services.AddOpenApi();
 
 builder.Services
-    .AddInfrastructure(builder.Configuration)
     .AddApplication()
+    .AddInfrastructure(builder.Configuration)
     .AddAPI();
 
 var app = builder.Build();
