@@ -1,5 +1,8 @@
 <Solution>
   <Project Path="Application/Application.csproj" />
+  <Folder Name="/tests/">
+    <Project Path="tests/Domain.Tests/Domain.Tests.csproj" />
+  </Folder>
   <Project Path="API/API.csproj" />
   <Project Path="docker-compose.dcproj">
     <Build />
