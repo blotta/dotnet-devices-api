@@ -20,7 +20,7 @@ namespace Application.Services
         public async Task<DeviceResponse> GetByIdAsync(Guid id)
         {
             var device = await _repository.GetByIdAsync(id)
-                ?? throw new NotFoundException("DeviceNotFound");
+                ?? throw new NotFoundException("Device not found");
 
             return ToResponse(device);
         }
