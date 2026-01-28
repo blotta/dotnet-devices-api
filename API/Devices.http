@@ -1,0 +1,57 @@
+@baseUrl = https://localhost:8081/api
+@deviceId = 00000000-0000-0000-0000-000000000000
+
+###
+# Create device
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Device 1",
+  "brand": "Cisco"
+}
+
+###
+# Get all devices
+GET http://localhost:8080/api/devices
+Accept: application/json
+
+###
+# Get devices by brand
+GET {{baseUrl}}/devices?brand=Cisco
+
+###
+# Get devices by state
+GET {{baseUrl}}/devices?state=available
+
+###
+# Get devices by brand + state
+GET {{baseUrl}}/devices?brand=Cisco&state=available
+
+###
+# Get device by id
+GET {{baseUrl}}/devices/{{deviceId}}
+
+###
+# Update device (partial)
+PATCH {{baseUrl}}/devices/{{deviceId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Device Name",
+  "state": "inUse"
+}
+
+###
+# Update only state
+PATCH {{baseUrl}}/devices/{{deviceId}}
+Content-Type: application/json
+
+{
+  "state": "inactive"
+}
+
+###
+# Delete device
+DELETE {{baseUrl}}/devices/{{deviceId}}
+

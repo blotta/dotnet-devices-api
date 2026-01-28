@@ -1,0 +1,23 @@
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    container_name: devices-api
+    depends_on:
+    - db
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+  db:
+    image: postgres:18.1
+    container_name: db
+    restart: unless-stopped
+    # shm_size: 128mb
+    volumes:
+    - pgdata:/var/lib/postgresql/18/docker
+    environment:
+      POSTGRES_DB: devices
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+
+volumes:
+  pgdata:
