@@ -1,7 +1,7 @@
 services:
   api:
-    image: ${DOCKER_REGISTRY-}api
     container_name: devices-api
+    restart: on-failure:3
     depends_on:
     - db
     build:

@@ -27,6 +27,34 @@ builder.Services
 
 var app = builder.Build();
 
+// check DB is up
+{
+    var maxRetries = 10;
+    var delay = TimeSpan.FromSeconds(3);
+    for (var i = 0; i < maxRetries; i++)
+    {
+        try
+        {
+            Console.Write($"Attempting database connection: {i + 1}/{maxRetries}: ");
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            await db.Database.OpenConnectionAsync();
+            await db.Database.CloseConnectionAsync();
+            Console.WriteLine("Success");
+
+            break;
+        }
+        catch (Exception)
+        {
+            if (i == maxRetries - 1)
+                throw;
+
+            await Task.Delay(delay);
+        }
+    }
+}
+
 // applying migrations automatically
 using (var scope = app.Services.CreateScope())
 {
