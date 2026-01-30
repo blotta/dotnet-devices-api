@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace API.Middleware
 {
+    public record BaseErrorApiResponse(string Error);
     public class ExceptionMiddleware(RequestDelegate _next)
     {
         public async Task InvokeAsync(HttpContext context)
@@ -32,7 +33,7 @@ namespace API.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)status;
 
-            var payload = new { error = message };
+            var payload = new BaseErrorApiResponse(message);
             await context.Response.WriteAsync(JsonSerializer.Serialize(payload));
         }
     }
